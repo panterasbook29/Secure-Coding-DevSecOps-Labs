@@ -9,7 +9,7 @@
 
 <b><i>Continuing the course?</b>
 </br>
-[Click here for the Next Section](/courseFiles/Section_04-containerAndCloudSecurity.md)</i>
+[Click here for the Next Section](/courseFiles/Section_04-containerAndCloudSecurity/containerAndCloudSecurity.md)</i>
 
 <b><i>Want to go back?</b>
 </br>
