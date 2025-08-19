@@ -19,6 +19,7 @@ This section is all about **foundations** — the habits and principles that mak
 
 ## Hands-On Labs
 [Lab 1 – Exploit & Patch OWASP Top 10](/courseFiles/Section_01-secureCoding_Basics/Lab1.md)
+
 **Goal** - Get familiar with the OWASP Top 10 by exploiting two classic vulnerabilities (SQL Injection + Cross-Site Scripting), then patching them in code
 
 <br><br>
