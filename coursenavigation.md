@@ -8,7 +8,7 @@
 
 ### [Secure Coding Basics](/courseFiles/Section_01-secureCoding_Basics/secureCoding_Basics.md)
 
-### [Static Analysis and Dependencies](/courseFiles/Section_02-staticAnalysisAndDependencies.md)
+### [Static Analysis and Dependencies](/courseFiles/Section_02-staticAnalysisAndDependencies/staticAnalysis.md)
 
 ### [CI/CD and Secrets Management](/courseFiles/Section_03-ciCdAndSecretsManagement/secretsManagement.md)
 
