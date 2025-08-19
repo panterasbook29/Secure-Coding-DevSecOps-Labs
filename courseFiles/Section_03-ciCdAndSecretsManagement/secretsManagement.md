@@ -1,4 +1,4 @@
-## Secrets Management
+## CI/CD & Secrets Management
 
 ## lab1_hardcoded_secret_detection
 
