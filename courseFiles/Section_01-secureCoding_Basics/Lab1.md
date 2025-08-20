@@ -62,7 +62,8 @@ The app will start on ``http://localhost:3000``
 ### Patched code
 - We’ll replace string concatenation with proper parameterization and fix adjacent issues (like plaintext passwords)
 
-<pre>import bcrypt from 'bcrypt';
+```
+import bcrypt from 'bcrypt';
 
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
@@ -96,7 +97,8 @@ app.post('/login', async (req, res) => {
     // Avoid leaking SQL errors
     return res.status(500).send('Server error');
   }
-});</pre>
+});
+```
 
 **What changed and why?**
 
@@ -119,8 +121,120 @@ app.get('/search', (req, res) => {
 });
 ```
 
-- Go to the **Search bar** on the home page
+- If a user calls /search?q=<script>alert(1)</script>, the browser executes <script> inside the page
+
+A stored variant might look like:
+
+```
+app.post('/comments', async (req, res) => {
+  const { productId, text } = req.body;
+  // text is saved as-is
+  await db.query('INSERT INTO Comments(product_id, text) VALUES (?, ?)', [productId, text]);
+  res.redirect(`/product/${productId}`);
+});
+
+app.get('/product/:id', async (req, res) => {
+  const comments = await db.query('SELECT text FROM Comments WHERE product_id = ?', [req.params.id]);
+  // danger: render raw, unescaped text inside HTML
+  const list = comments.map(c => `<li>${c.text}</li>`).join('');
+  res.send(`<ul>${list}</ul>`);
+});
+```
+
+- To do it go to the **Search bar** on the home page
 - Enter the following:
 <pre><iframe src="javascript:alert('HACKED')"></pre>
 
 <img width="1852" height="1051" alt="image" src="https://github.com/user-attachments/assets/bff18e38-159d-4693-a574-0eaf900e8a19" />
+
+- **Why it works:** Browsers treat <script> and event attributes as executable code. If you place user input into HTML without encoding, the browser will run it
+
+### Patched code
+
+**Secure code (reflected search)**
+
+```
+import helmet from 'helmet';
+import { escape } from 'lodash';
+
+// Set security headers (including a Content Security Policy)
+app.use(helmet({
+  contentSecurityPolicy: {
+    useDefaults: true,
+    directives: {
+      // only allow scripts we control (tighten for your app)
+      "script-src": ["'self'"]
+    }
+  }
+}));
+
+app.get('/search', (req, res) => {
+  const q = typeof req.query.q === 'string' ? req.query.q : '';
+
+  // 1) **Context-aware output encoding** for HTML body context:
+  const safe = escape(q); // converts < > & " ' into HTML entities
+
+  // 2) Prefer server templating that auto-escapes OR send JSON to the client
+  res.send(`<h1>Results for: ${safe}</h1>`);
+});
+```
+
+**What changed and why?**
+- ``escape()`` (or automatic escaping in a templating engine like Handlebars, Nunjucks, or JSX) transforms ``<`` into ``&lt;``, etc, the browser renders text instead of executing it
+- **CSP** via **Helmet** blocks inline scripts and third-party script execution, it’s a second line of defense if someone slips an unescaped payload in
+- **Type checks** avoid weird non-string values
+
+<br><br>
+
+**Secure code (stored comments)**
+```
+import { body, validationResult } from 'express-validator';
+import sanitizeHtml from 'sanitize-html';
+
+app.post('/comments',
+  body('productId').isInt({ min: 1 }),
+  body('text').isLength({ min: 1, max: 2000 }),  // limit size
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).send('Bad input');
+
+    // 1) **Server-side sanitization** if you truly allow limited HTML:
+    const allowed = sanitizeHtml(req.body.text, {
+      allowedTags: ['b','i','strong','em','ul','ol','li','p','br'],
+      allowedAttributes: {}
+    });
+
+    await db.query(
+      'INSERT INTO Comments(product_id, text) VALUES (?, ?)',
+      [req.body.productId, allowed]
+    );
+    res.redirect(`/product/${req.body.productId}`);
+  }
+);
+
+app.get('/product/:id', async (req, res) => {
+  const comments = await db.query('SELECT text FROM Comments WHERE product_id = ?', [req.params.id]);
+
+  // 2) **Encode on output** (if you store raw text) OR ensure only sanitized HTML is ever stored
+  const list = comments.map(c => `<li>${c.text}</li>`).join(''); // c.text is sanitized above
+  res.send(`<ul>${list}</ul>`);
+});
+```
+
+**What changed and why?**
+
+- **Validation:** reject nonsense values early (e.g., giant strings or non-integers)
+- **Sanitization** (if you must allow HTML): sanitize-html strips dangerous tags/attributes. Consider storing raw markdown and rendering server-side with a safe renderer as an alternative
+- **Encode on output** when rendering untrusted text into HTML contexts
+- **CSP** still applies — treat it as containment if something slips through
+
+
+**Golden rule: Prefer encoding on output and don’t store raw HTML. If business requires some formatting, sanitize to a minimal, safe subset**
+
+
+---
+[Back to the section](/courseFiles/Section_01-secureCoding_Basics/secureCoding_Basics.md)
+
+
+
+  
