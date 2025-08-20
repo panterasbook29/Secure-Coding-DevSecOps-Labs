@@ -122,24 +122,24 @@ curl -s http://localhost:4000/profile/update \
 - **Result:** your role flips to "admin". That’s a silent privilege escalation caused by missing allowlist validation
 
 ### Patched code
-- Replace the vulnerable handler with a safe allowlist + validation. Edit ``app.js`` and **add this secure variant below the vulnerable one** (or replace it entirely when you’re done testing):
+- Replace the vulnerable handler with a safe allowlist + validation. Edit ``app.js`` and **add this secure variant below the vulnerable one**:
 ```
-// SECURE: explicit allowlist + server-side validation
+// SECURE: allowlist + validation + forbidden fields
 app.post(
   '/profile/update/secure',
+  forbidFields(['role', 'isAdmin', 'accountStatus']),
   [
     body('displayName').optional().isString().isLength({ min: 1, max: 80 }),
-    body('email').optional().isEmail().isLength({ max: 120 }),
-    // NOTE: we DO NOT accept 'role' from clients — that’s the whole point.
-    // No validator for 'role' means clients can’t change it here.
+    body('email').optional().isEmail().isLength({ max: 120 })
   ],
   (req, res) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({ ok: false, errors: errors.array() });
+    if (!errors.isEmpty())
+      return res.status(400).json({ ok: false, errors: errors.array() });
 
-    // Allowlist: only update fields we explicitly permit
     const updates = {};
-    if (typeof req.body.displayName === 'string') updates.displayName = req.body.displayName;
+    if (typeof req.body.displayName === 'string')
+      updates.displayName = req.body.displayName;
     if (typeof req.body.email === 'string') updates.email = req.body.email;
 
     Object.assign(user, updates);
@@ -192,7 +192,7 @@ curl -s 'http://localhost:4000/files?filename=../app.js'
 - You should see your script, otherwise unaccesable
 
 ### Patched code
-- Replace the vulnerable route with a validation + normalization + “stay inside base” check:
+- Add below the vulnerable route, this has a validation + normalization + “stay inside base” check:
 ```
 // SECURE: normalize, validate, and enforce base directory
 app.get('/files/secure', (req, res) => {
