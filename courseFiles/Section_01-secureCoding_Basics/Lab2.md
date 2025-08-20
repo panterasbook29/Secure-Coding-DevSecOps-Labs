@@ -116,6 +116,9 @@ curl -s http://localhost:4000/profile/update \
   -d '{"displayName":"Owned","role":"admin"}' | jq .
 ```
 
+<img width="640" height="244" alt="image" src="https://github.com/user-attachments/assets/f8cb5722-78be-4a5f-94d6-c2516f141324" />
+
+
 - **Result:** your role flips to "admin". That’s a silent privilege escalation caused by missing allowlist validation
 
 ### Patched code
@@ -123,7 +126,7 @@ curl -s http://localhost:4000/profile/update \
 ```
 // SECURE: explicit allowlist + server-side validation
 app.post(
-  '/profile/update',
+  '/profile/update/secure',
   [
     body('displayName').optional().isString().isLength({ min: 1, max: 80 }),
     body('email').optional().isEmail().isLength({ max: 120 }),
