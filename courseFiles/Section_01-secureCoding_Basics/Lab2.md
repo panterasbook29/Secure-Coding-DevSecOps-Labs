@@ -72,18 +72,85 @@ app.listen(4000, () => {
 EOF
 ```
 ```bash
-
+mkdir -p files
 ```
 ```bash
-
+echo "Hello from the safe directory." > files/welcome.txt
 ```
 ```bash
-
+node app.js
 ```
 
+Now the App is live at: ``http://localhost:4000``
 
+## Start
 
+## Mass Assignment / Over-posting
+- What the bug looks like in code (vulnerable pattern)
+```
+// unvalidated merge lets clients set anything, including 'role'
+app.post('/profile/update', (req, res) => {
+  Object.assign(user, req.body);
+  return res.json({ ok: true, user });
+});
+```
 
+- **Why it’s bad:** The server assumes clients only send “legit” fields. Attackers can over-post sensitive fields (like ``role``, ``isAdmin``, ``balance``, ``status``) and overwrite them
+
+### Exploit
+- Check current profile:
+```bash
+curl -s http://localhost:4000/profile/update \
+  -H 'Content-Type: application/json' \
+  -d '{}' | jq .
+```
+
+- You should see this
+
+<img width="647" height="250" alt="image" src="https://github.com/user-attachments/assets/50ceedbd-72d1-41d6-88d1-485bfaf6f400" />
+
+- Overpost ``role`` to become admin:
+```bash
+curl -s http://localhost:4000/profile/update \
+  -H 'Content-Type: application/json' \
+  -d '{"displayName":"Owned","role":"admin"}' | jq .
+```
+
+- **Result:** your role flips to "admin". That’s a silent privilege escalation caused by missing allowlist validation
+
+### Patched code
+- Replace the vulnerable handler with a safe allowlist + validation. Edit ``app.js`` and **add this secure variant below the vulnerable one** (or replace it entirely when you’re done testing):
+```
+// SECURE: explicit allowlist + server-side validation
+app.post(
+  '/profile/update',
+  [
+    body('displayName').optional().isString().isLength({ min: 1, max: 80 }),
+    body('email').optional().isEmail().isLength({ max: 120 }),
+    // NOTE: we DO NOT accept 'role' from clients — that’s the whole point.
+    // No validator for 'role' means clients can’t change it here.
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ ok: false, errors: errors.array() });
+
+    // Allowlist: only update fields we explicitly permit
+    const updates = {};
+    if (typeof req.body.displayName === 'string') updates.displayName = req.body.displayName;
+    if (typeof req.body.email === 'string') updates.email = req.body.email;
+
+    Object.assign(user, updates);
+    return res.json({ ok: true, user });
+  }
+);
+```
+
+**What changed and why?**
+- **Allowlist (positive validation):** We only accept ``displayName`` and ``email``, no ``role``, no ``isAdmin``, no sensitive fields
+- **Shape + type checks:** Using ``express-validator`` to enforce expected types/lengths
+- **Least privilege at the API boundary:** Clients don’t control authorization fields, ever
+
+Try to escalate again against the secure route (should fail silently to change role)
 
 
 ---
