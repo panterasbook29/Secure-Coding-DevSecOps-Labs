@@ -153,7 +153,91 @@ app.post(
 - **Shape + type checks:** Using ``express-validator`` to enforce expected types/lengths
 - **Least privilege at the API boundary:** Clients don’t control authorization fields, ever
 
-Try to escalate again against the secure route (should fail silently to change role)
+Try to escalate again against the secure route (should fail silently to change role):
+
+```
+curl -s http://localhost:4000/profile/update/secure \
+  -H 'Content-Type: application/json' \
+  -d '{"displayName":"Still Owned","role":"admin"}' | jq .
+```
+
+
+## Path Traversal
+- What the bug looks like in code (vulnerable pattern)
+```
+// VULNERABLE: path.join(SAFE_DIR, userInput) without validation
+app.get('/files', (req, res) => {
+  const filename = req.query.filename || 'welcome.txt';
+  const full = path.join(SAFE_DIR, filename);
+  fs.readFile(full, 'utf8', (err, data) => {
+    if (err) return res.status(404).send('Not found');
+    res.type('text/plain').send(data);
+  });
+});
+```
+
+**Why it’s bad:** ``..`` segments (or encoded forms) can escape SAFE_DIR. Attackers can attempt to read sensitive files
+
+### Exploit
+- Try a normal request:
+```bash
+curl -s 'http://localhost:4000/files?filename=welcome.txt'
+```
+
+- Attempt traversal (Linux):
+```bash
+curl -s 'http://localhost:4000/files?filename=../app.js'
+```
+
+- You should see your script, otherwise unaccesable
+
+### Patched code
+- Replace the vulnerable route with a validation + normalization + “stay inside base” check:
+```
+// SECURE: normalize, validate, and enforce base directory
+app.get('/files/secure', (req, res) => {
+  const raw = String(req.query.filename || '');
+
+  // 1) Basic filename policy: allow only simple names (no slashes)
+  // Adjust as needed, but tight by default:
+  if (!/^[a-zA-Z0-9._-]{1,100}$/.test(raw)) {
+    return res.status(400).send('Bad filename');
+  }
+
+  // 2) Resolve and ensure path stays within SAFE_DIR
+  const full = path.join(SAFE_DIR, raw);
+  const normalizedBase = path.resolve(SAFE_DIR);
+  const normalizedFull = path.resolve(full);
+  if (!normalizedFull.startsWith(normalizedBase + path.sep) && normalizedFull !== normalizedBase) {
+    return res.status(400).send('Invalid path');
+  }
+
+  fs.readFile(normalizedFull, 'utf8', (err, data) => {
+    if (err) return res.status(404).send('Not found');
+    res.type('text/plain').send(data);
+  });
+});
+```
+
+**What changed and why?**
+- **Strict filename policy:** We only accept a constrained set of characters (no ``/`` or ``\``)
+- **Normalize + compare:** ``path.resolve`` and a base-dir prefix check ensure the final path still lives inside ``SAFE_DIR``
+- **Fail closed:** Anything that doesn’t meet policy returns a 4xx
+
+Verify the fix
+
+Normal use still works:
+```bash
+curl -s 'http://localhost:4000/files/secure?filename=welcome.txt'
+```
+
+Traversal is blocked:
+```bash
+curl -i 'http://localhost:4000/files/secure?filename=../../etc/hostname'
+```
+
+<img width="867" height="244" alt="image" src="https://github.com/user-attachments/assets/554f8375-0923-4d6f-907d-f6e6ede728df" />
+
 
 
 ---
