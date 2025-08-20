@@ -107,13 +107,17 @@ app.post('/login', async (req, res) => {
 
 ## Cross-Site Scripting (XSS)
 - **What the bug looks like in code (vulnerable pattern)**
+
 Two common flavors: reflected (in the response immediately) and stored (persisted, hits all viewers)
-<pre>app.get('/search', (req, res) => {
+
+```
+app.get('/search', (req, res) => {
   const q = req.query.q || '';
   // Directly injecting untrusted input into HTML (no encoding)
   const html = `<h1>Results for: ${q}</h1>`;
   res.send(html);
-});</pre>
+});
+```
 
 - Go to the **Search bar** on the home page
 - Enter the following:
