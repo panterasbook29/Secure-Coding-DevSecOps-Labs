@@ -24,7 +24,9 @@ This section is all about **foundations** — the habits and principles that mak
 
 <br><br>
 
-lab2_input_validation_and_sanitization
+[Lab 2 – Input Validation & Sanitization](/courseFiles/Section_01-secureCoding_Basics/Lab2.md)
+
+**Goal** – Learn how to properly validate and sanitize user input to prevent injection-style attacks
 
 
 ***                                                       
