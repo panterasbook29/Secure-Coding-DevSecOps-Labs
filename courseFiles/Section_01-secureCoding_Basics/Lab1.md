@@ -18,7 +18,7 @@ The app will start on ``http://localhost:3000``
 <img width="1920" height="1121" alt="image" src="https://github.com/user-attachments/assets/45c2ac9c-ad83-42c2-8edc-651c63991337" />
 
 ## SQL Injection
-- What the bug looks like in code (vulnerable pattern)
+- **What the bug looks like in code (vulnerable pattern)**
 <pre>app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -106,6 +106,15 @@ app.post('/login', async (req, res) => {
 - **No error leakage:** We don’t echo SQL errors to the client
 
 ## Cross-Site Scripting (XSS)
+- **What the bug looks like in code (vulnerable pattern)**
+Two common flavors: reflected (in the response immediately) and stored (persisted, hits all viewers)
+<pre>app.get('/search', (req, res) => {
+  const q = req.query.q || '';
+  // Directly injecting untrusted input into HTML (no encoding)
+  const html = `<h1>Results for: ${q}</h1>`;
+  res.send(html);
+});</pre>
+
 - Go to the **Search bar** on the home page
 - Enter the following:
 <pre><iframe src="javascript:alert('HACKED')"></pre>
