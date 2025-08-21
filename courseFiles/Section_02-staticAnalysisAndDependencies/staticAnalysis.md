@@ -99,12 +99,14 @@ jobs:
 ```
 
 ## Hands-On Labs
-Before the first lab, be sure to check out the [Semgrep Documentation](/courseFiles/tools/semgrep.md) and the [Snyk Documentation](/courseFiles/tools/snyk.md) so you have them ready for the lab
+Before the first lab, be sure to check out the [Semgrep Documentation](/courseFiles/tools/semgrep.md) so you have it ready for the lab
 
 [Lab 1 – Semgrep SAST: Catch and Gate Insecure Code](/courseFiles/Section_02-staticAnalysisAndDependencies/Lab1.md)
 **Goal:** Install Semgrep, run a focused rule set on a small Node/Express service, reproduce real findings (string-built SQL, unsafe innerHTML, insecure cookies), then fix and set a merge gate
 
 <br><br>
+
+Before this Lab, be sure to check out the [Snyk Documentation](/courseFiles/tools/snyk.md) so you have it ready for the lab
 
 [Lab 2 – Dependencies, SBOM & Supply Chain](/courseFiles/Section_02-staticAnalysisAndDependencies/Lab2.md)
 **Goal:** Use Snyk (and native package tools) to surface vulnerable libs in a real project (Juice Shop or the Lab 2 service), generate an SBOM, implement pinning + upgrade PRs, and add a CI failure threshold
