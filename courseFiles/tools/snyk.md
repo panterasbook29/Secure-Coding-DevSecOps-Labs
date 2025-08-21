@@ -30,15 +30,21 @@ snyk auth
 ```bash
 snyk test
 ```
+---
+
 Or to monitor continuosly
 ```bash
 snyk monitor
 ```
 
+---
+
 **Container Image Scanning**
 ```bash
 snyk container test <image-name>
 ```
+
+---
 
 **Infrastructure as Code (IaC) Scanning**
 
@@ -47,11 +53,14 @@ Scan Terraform, Kubernetes, or Helm configs
 snyk iac test
 ```
 
+---
 
 **Source Code (SAST) Scanning**
 ```bash
 snyk code test
 ```
+
+---
 
 **Fixing Vulnerabilities**
 ```bash
