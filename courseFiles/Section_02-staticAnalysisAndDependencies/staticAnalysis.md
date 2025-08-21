@@ -9,14 +9,14 @@ If Section 01 was about you writing safer code, Section 02 is about putting guar
 - Good pipelines turn “hope” into **gates**: merge gets blocked until high-risk issues are fixed or explicitly accepted
 
 ### What we’ll cover
-- **SAST (Static Application Security Testing)** with **Semgrep** — fast rules, CI-friendly, catches insecure patterns in your code
+- **SAST (Static Application Security Testing)** with [Semgrep](/courseFiles/tools/semgrep.md) — fast rules, CI-friendly, catches insecure patterns in your code
 - **SCA (Software Composition Analysis)** with **Snyk** (plus built-ins like ``npm audit``) — find known-vuln libraries and vulnerable transitive deps
 - **SBOMs (CycloneDX/SPDX)** — generate a bill of materials and use it to track exposure
 - **Version hygiene** — pinning, ranges, and how to avoid accidental upgrades that reopen old CVEs
 - **Quality gates** — right way to fail a build (what to block, what to log, what to ticket)
 
 ### SAST vs DAST vs SCA (60-second cheat sheet)
-- **SAST:** reads your code and flags risky patterns before runtime, great for PR checks (we’ll use **Semgrep**)
+- **SAST:** reads your code and flags risky patterns before runtime, great for PR checks (we’ll use [Semgrep](/courseFiles/tools/semgrep.md))
 - **DAST:** pokes the running app from the outside, useful, but after you’ve deployed something
 - **SCA:** reads your lockfiles/manifests to find known bad package versions (we’ll use **Snyk** and native tools)
 
@@ -30,7 +30,7 @@ In this section we focus on **SAST + SCA**
 - **Exceptions are explicit** (one-line allow list with a documented expiry date)
 
 ### Quick mental model: where to put each control
-- **Local dev:** semgrep --config p/owasp-top-ten --error and snyk test before commit
+- **Local dev:** [semgrep](/courseFiles/tools/semgrep.md) --config p/owasp-top-ten --error and snyk test before commit
 - **CI (PR):** same commands, plus upload SARIF or HTML reports
 - **CI (main):** generate SBOM, run a full Snyk scan, fail on new criticals, store artifacts
 - **Scheduled:** weekly dependency update PRs (Dependabot/Renovate) + scan on open
@@ -99,6 +99,8 @@ jobs:
 ```
 
 ## Hands-On Labs
+Before the first lab, be sure to check out the [Semgrep Documentation](/courseFiles/tools/semgrep.md) so you have it ready for the lab
+
 [Lab 1 – Semgrep SAST: Catch and Gate Insecure Code](/courseFiles/Section_02-staticAnalysisAndDependencies/Lab1.md)
 **Goal:** Install Semgrep, run a focused rule set on a small Node/Express service, reproduce real findings (string-built SQL, unsafe innerHTML, insecure cookies), then fix and set a merge gate
 
