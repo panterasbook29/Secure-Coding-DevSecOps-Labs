@@ -30,7 +30,7 @@ In this section we focus on **SAST + SCA**
 - **Exceptions are explicit** (one-line allow list with a documented expiry date)
 
 ### Quick mental model: where to put each control
-- **Local dev:** [semgrep](/courseFiles/tools/semgrep.md) --config p/owasp-top-ten --error and snyk test before commit
+- **Local dev:** ``semgrep --config p/owasp-top-ten --error`` and ``snyk test`` before commit
 - **CI (PR):** same commands, plus upload SARIF or HTML reports
 - **CI (main):** generate SBOM, run a full Snyk scan, fail on new criticals, store artifacts
 - **Scheduled:** weekly dependency update PRs (Dependabot/Renovate) + scan on open
