@@ -62,9 +62,9 @@ snyk code test
 
 ---
 
-**Fixing Vulnerabilities**
+**Ignore Vulnerabilities**
 ```bash
-snyk wizard
+snyk ignore
 ```
 
 
