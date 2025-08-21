@@ -25,8 +25,10 @@ semgrep --version
 ## Usage
 **Quick Scan with Built-in Rules**
 ```bash
-
+semgrep --config=auto .
 ```
+
+---
 
 **Using Public Rule Registry**
 
@@ -40,6 +42,8 @@ Examples:
 ```bash
 semgrep --config=p/security-audit .
 ```
+
+---
 
 **Login to get access to more rules**
 ```bash
