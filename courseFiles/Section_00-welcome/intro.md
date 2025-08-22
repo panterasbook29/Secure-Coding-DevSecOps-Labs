@@ -19,7 +19,7 @@ We’ll be leaning on free/open-source tools so you can replicate everything at 
 - **git-secrets / truffleHog** – secret detection
 - **OWASP Juice Shop / DVWA** – vulnerable apps for practice
 - **OWASP ZAP** – dynamic analysis
-- **Docker & Kubernetes (optional)** – container labs
+- **Docker & Kubernetes** – container labs
 
 ## Course Structure
 The course is broken into 5 main sections:
