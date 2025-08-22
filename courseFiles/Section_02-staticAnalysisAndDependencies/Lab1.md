@@ -25,25 +25,14 @@ const app = express();
 app.use(express.json());
 app.use(helmet({ contentSecurityPolicy: { useDefaults: true } }));
 
-// --- VULN 1: SQL injection via string concatenation ---
-app.post('/login', async (req, res) => {
-  const { email, password } = req.body || {};
-  // building SQL by string concatenation; user input changes query logic
-  const sql = "SELECT id, email FROM Users WHERE email = '" + email + "' AND password = '" + password + "'";
-  // imagine db.query exists:
-  // const rows = await db.query(sql);
-  // To keep this lab self-contained, we'll just echo back the SQL:
-  return res.json({ debug: 'ran raw SQL', sql });
-});
-
-// --- VULN 2: Reflected XSS in search ---
+// --- VULN 1: Reflected XSS in search ---
 app.get('/search', (req, res) => {
   const q = req.query.q || '';
   // untrusted input injected into HTML without encoding
   res.send(`<h1>Results for ${q}</h1>`);
 });
 
-// --- VULN 3: Insecure cookie flags ---
+// --- VULN 2: Insecure cookie flags ---
 app.get('/session', (req, res) => {
   const token = (Math.random() + 1).toString(36).substring(2);
   // no httpOnly/secure/sameSite flags
@@ -51,7 +40,7 @@ app.get('/session', (req, res) => {
   res.json({ ok: true });
 });
 
-// --- VULN 4: Command execution with user input ---
+// --- VULN 3: Command execution with user input ---
 app.post('/run', (req, res) => {
   const { cmd } = req.body || {};
   // never pass untrusted strings to a shell
