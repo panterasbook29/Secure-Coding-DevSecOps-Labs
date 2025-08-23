@@ -47,6 +47,10 @@ flowchart LR
 EOF
 ```  
 
+You can view and open it via [Github](https://github.com/), or check it out in this repo [here](/coursFiles/Section_05-threatModelingAndReporting/dfd.md)
+
+<img width="1046" height="738" alt="image" src="https://github.com/user-attachments/assets/43ce1cd3-a6a3-4398-b5f5-12dda3fe0b63" />
+
 
 ---
 [Back to the section](/courseFiles/Section_05-threatModelingAndReporting/threatModelingAndReporting.md)
