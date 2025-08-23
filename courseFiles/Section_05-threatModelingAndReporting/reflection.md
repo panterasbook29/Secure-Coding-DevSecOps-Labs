@@ -1,0 +1,3 @@
+- Riskiest flow: ______ because ______.
+- Next test: ______ (why).
+- First control to ship: ______ (tradeoff: perf/usability/complexity).
