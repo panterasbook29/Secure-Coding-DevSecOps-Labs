@@ -55,6 +55,23 @@ If earlier sections were “fix the bug,” this one is “prevent the class of 
 - **Code review helpers:** grep, ripgrep, Semgrep outputs, IDE search
 - **Risk/Report:** Markdown + CSV; keep it versioned with the code
 
+## Templates
+- Risk Table:
+```
+Risk,Component,STRIDE,Likelihood,Impact,Severity,Mitigation,Owner,Due
+"Password reset enumeration","Auth API","I","M","M","M","Uniform response + rate limit 5/min","@alice","2025-09-01"
+"JWT without audience claim","Gateway","T","M","H","H","Add aud check + key rotation","@bob","2025-08-30"
+```
+
+- Finding (Markdown block):
+### [H] Insecure Direct Object Reference in /orders
+**Context:** GET /api/orders/:id accepts any ID  
+**Repro:** Login as user A → request /api/orders/123 where 123 belongs to user B → 200 + B’s data  
+**Impact:** Privacy breach; exportable PII  
+**Fix:** Enforce owner check in OrderService.getById(userId, orderId); add test; return 404 not 403  
+**Refs:** OWASP API4:2019, CWE-639
+
+
 ## Hands-On Labs
 [Lab 1 – STRIDE Threat Modeling](/courseFiles/Section_05-threatModelingAndReporting/Lab1.md)
 **Goal:** Draw a minimal DFD for a small web app, run STRIDE across processes/flows/stores, rate risks, and produce a one-page model + mitigation backlog
