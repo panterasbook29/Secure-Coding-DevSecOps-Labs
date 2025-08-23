@@ -93,6 +93,14 @@ cat > reflection.md <<'EOF'
 EOF
 ```
 
+You can see it [here](/courseFiles/Section_05-threatModelingAndReporting/reflection.md)
+
+### Cleanup
+Remove juice shop
+```bash
+docker rm -f juice
+```
+
 
 ---
 [Back to the section](/courseFiles/Section_05-threatModelingAndReporting/threatModelingAndReporting.md)
