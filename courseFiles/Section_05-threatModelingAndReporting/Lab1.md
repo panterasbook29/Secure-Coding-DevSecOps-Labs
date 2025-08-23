@@ -49,7 +49,49 @@ EOF
 
 You can view and open it via [Github](https://github.com/), or check it out in this repo [here](/courseFiles/Section_05-threatModelingAndReporting/dfd.md)
 
-<img width="1046" height="738" alt="image" src="https://github.com/user-attachments/assets/43ce1cd3-a6a3-4398-b5f5-12dda3fe0b63" />
+### Run STRIDE per element (make a small risk table)
+Use these prompts while you look at your DFD:
+
+- **Actor:** Spoofing, Repudiation  
+- **Process:** Tampering, DoS, Elevation of Privilege  
+- **Data Store:** Tampering, Information Disclosure, Repudiation  
+- **Cross-boundary Flow:** Info Disclosure, Tampering, DoS
+
+Create a CSV and fill 4–6 concrete risks:
+
+```bash
+cat > risks.csv <<'EOF'
+Risk,Component,STRIDE,Likelihood,Impact,Severity,Mitigation,Owner,Due
+"DOM XSS in search/reviews","Browser↔App (UI)","I/T","H","H","H","Encode output; content rules (CSP); sanitize inputs","@you","2025-09-01"
+"Brute force on /login","Auth API","D","H","M","H","Rate limit 5/min/IP; lockout/captcha after threshold","@you","2025-09-05"
+"JWT in LocalStorage stolen","Browser Store","I/E","M","H","H","HttpOnly cookies for tokens; short TTL; rotate on privilege change","@you","2025-09-10"
+"Password reset user enum","/rest/user/password-reset","I","M","M","M","Uniform responses; rate limit; audit logs","@you","2025-09-08"
+"SQL injection in queries","Server↔DB","T/E","M","H","H","Parameterized queries/ORM only; tests","@you","2025-09-15"
+EOF
+```
+
+View it via
+```bash
+column -s, -t < risks.csv
+```
+
+### Deliverables (what to commit)
+- ``dfd.md`` (your one-page system sketch)
+- ``risks.csv`` (your top risks with STRIDE tags and owners)
+
+You can also make a ``reflection.md`` with 3 bullets:
+
+- The riskiest **flow** and why
+- One thing you’d test next week
+- One control you’d propose first
+
+```bash
+cat > reflection.md <<'EOF'
+- Riskiest flow: ______ because ______.
+- Next test: ______ (why).
+- First control to ship: ______ (tradeoff: perf/usability/complexity).
+EOF
+```
 
 
 ---
