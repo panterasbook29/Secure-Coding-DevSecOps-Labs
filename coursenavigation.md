@@ -29,8 +29,12 @@
 ### [Containers and Cloud Security](/courseFiles/Section_04-containerAndCloudSecurity/containerAndCloudSecurity.md)
 
 ### [Threat Modeling and Reporting](/courseFiles/Section_05-threatModelingAndReporting/threatModelingAndReporting.md)
-- [a](/courseFiles/Section_05-threatModelingAndReporting/threatModelingAndReporting.md#threat-modeling-and-reporting)
-
+- [Threat Modeling And Reporting](/courseFiles/Section_05-threatModelingAndReporting/threatModelingAndReporting.md#threat-modeling-and-reporting)
+- [Deliverables (what “done” looks like)](/courseFiles/Section_05-threatModelingAndReporting/threatModelingAndReporting.md#deliverables-what-done-looks-like)
+- [Cheat sheets you’ll keep](/courseFiles/Section_05-threatModelingAndReporting/threatModelingAndReporting.md#cheat-sheets-youll-keep)
+- [Tips](/courseFiles/Section_05-threatModelingAndReporting/threatModelingAndReporting.md#tips)
+- [Templates](/courseFiles/Section_05-threatModelingAndReporting/threatModelingAndReporting.md#templates)
+- [Hands-On Labs](/courseFiles/Section_05-threatModelingAndReporting/threatModelingAndReporting.md#hands-on-labs)
 ***
 
 <i>[<< Back to Course Home Page](/README.md)</i>
