@@ -98,7 +98,7 @@ You can see it [here](/courseFiles/Section_05-threatModelingAndReporting/reflect
 ### Cleanup
 Remove juice shop
 ```bash
-docker rm -f juice
+sudo docker rm -f juice
 ```
 
 
