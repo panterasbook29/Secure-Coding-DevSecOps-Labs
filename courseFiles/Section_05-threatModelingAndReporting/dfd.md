@@ -15,6 +15,7 @@
 
 ```mermaid
 flowchart LR
-  U[Customer (Browser)] -->|HTTP(S)| App[Juice Shop]
-  App <-->|SQL| DB[(SQLite)]
-  U <--> LS[(LocalStorage / JWT)]
+  U["Customer / Browser"] -->|HTTPS| App["Juice Shop (Node + Angular)"]
+  App <-->|SQL| DB["SQLite"]
+  U <--> LS["LocalStorage / JWT"]
+
