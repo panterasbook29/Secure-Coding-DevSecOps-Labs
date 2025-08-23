@@ -22,4 +22,4 @@ flowchart LR
 
 --- 
 
-[Back to Lab1]([Lab 1 – STRIDE Threat Modeling](/courseFiles/Section_05-threatModelingAndReporting/Lab1.md))
+[Back to Lab1](/courseFiles/Section_05-threatModelingAndReporting/Lab1.md)
