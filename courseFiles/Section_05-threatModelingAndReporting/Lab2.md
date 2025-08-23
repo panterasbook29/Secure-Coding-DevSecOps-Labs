@@ -11,7 +11,7 @@ mkdir -p ~/section05-lab2 && cd ~/section05-lab2
 ```
 
 ```bash
-docker run -d --name juice -p 3000:3000 bkimminich/juice-shop
+sudo docker run -d --name juice -p 3000:3000 bkimminich/juice-shop
 ```
 Visit ``http://localhost:3000``
 
@@ -43,14 +43,14 @@ rg -n "innerHTML|outerHTML|dangerouslySetInnerHTML"
 
 Auth & reset paths (names vary between versions; this finds them)
 ```bash
-rg -n "login|authenticate|reset|password|token" --iglob "**/*.(ts|js|ts|html)"
+rg -n -i "login|authenticate|reset|password|token" -g '**/*.{ts,js,html}'
 ```
 
 ---
 
 Server-side JWT handling
 ```bash
-rg -n "jwt|jsonwebtoken|verify|sign" --iglob "*/**.(js|ts)"
+rg -n -i "jwt|jsonwebtoken|verify|sign" -t js -t ts -g '!node_modules/*'
 ```
 
 ---
@@ -149,6 +149,13 @@ cat > report.md <<'EOF'
 EOF
 ```
 
+You can see it [here](/courseFiles/Section_05-threatModelingAndReporting/report.md)
+
+### Cleanup
+Remove juice shop
+```bash
+sudo docker rm -f juice
+```
 
 
 
