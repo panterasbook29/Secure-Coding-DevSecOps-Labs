@@ -15,9 +15,10 @@
 
 ```mermaid
 flowchart LR
-  U[Customer/Browser]:::actor -- HTTP(S) --> App[Juice Shop (Node/Angular)]:::proc
-  App <-- SQL --> DB[(SQLite)]:::store
-  U <-- LocalStorage/JWT --> U
+  U[Customer (Browser)]:::actor -->|HTTP(S)| App[Juice Shop (Node/Angular)]:::proc
+  App <-->|SQL| DB[(SQLite)]:::store
+  U <--> LS[(LocalStorage / JWT)]:::store
+
   classDef actor fill:#eef,stroke:#447;
   classDef proc  fill:#efe,stroke:#474;
   classDef store fill:#ffe,stroke:#774;
