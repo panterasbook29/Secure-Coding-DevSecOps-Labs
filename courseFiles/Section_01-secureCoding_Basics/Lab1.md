@@ -15,7 +15,8 @@ sudo docker run --rm -p 3000:3000 bkimminich/juice-shop
 ## Start
 The app will start on ``http://localhost:3000``
 
-<img width="1920" height="1121" alt="image" src="https://github.com/user-attachments/assets/45c2ac9c-ad83-42c2-8edc-651c63991337" />
+<img width="1920" height="1057" alt="image" src="https://github.com/user-attachments/assets/49b57452-51c1-469c-bb68-bf3e867dc75c" />
+
 
 ## SQL Injection
 - **What the bug looks like in code (vulnerable pattern)**
