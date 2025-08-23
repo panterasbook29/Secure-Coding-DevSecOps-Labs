@@ -18,4 +18,8 @@ flowchart LR
   U["Customer / Browser"] -->|HTTPS| App["Juice Shop (Node + Angular)"]
   App <-->|SQL| DB["SQLite"]
   U <--> LS["LocalStorage / JWT"]
+```
 
+--- 
+
+[Back to Lab1]([Lab 1 – STRIDE Threat Modeling](/courseFiles/Section_05-threatModelingAndReporting/Lab1.md))
