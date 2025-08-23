@@ -11,7 +11,7 @@
 2. Server ↔ DB: SQL queries
 3. Browser ↔ LocalStorage: JWT/cart cached in browser
 
-> Optional diagram (Mermaid). GitHub/VS Code will render this:
+> Diagram (Mermaid). GitHub will render this:
 
 ```mermaid
 flowchart LR
