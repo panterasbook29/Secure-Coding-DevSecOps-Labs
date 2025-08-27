@@ -282,6 +282,8 @@ Observability enables detection and response but must be designed to avoid leaki
 
 ## lab1_insecure_dockerfile_and_fix
 
+For the first lab, [click here!](./lab1.md)
+
 ## lab2_cloud_bucket_misconfiguration
 
 
