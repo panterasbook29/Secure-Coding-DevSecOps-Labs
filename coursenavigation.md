@@ -25,6 +25,19 @@
 - [Hands-On Labs](/courseFiles/Section_02-staticAnalysisAndDependencies/staticAnalysis.md#hands-on-labs)
 
 ### [CI/CD and Secrets Management](/courseFiles/Section_03-ciCdAndSecretsManagement/secretsManagement.md)
+- [1. Introduction & learning outcomes](/courseFiles/Section_03-ciCdAndSecretsManagement/secretsManagement.md#1-introduction--learning-outcomes)
+- [2. Core concepts and vocabulary](/courseFiles/Section_03-ciCdAndSecretsManagement/secretsManagement.md#2-core-concepts-and-vocabulary)
+- [3. CI/CD as an attack surface: threat models](/courseFiles/Section_03-ciCdAndSecretsManagement/secretsManagement.md#3-cicd-as-an-attack-surface-threat-models)
+- [4. Secret types, classification and sensitivity](/courseFiles/Section_03-ciCdAndSecretsManagement/secretsManagement.md#4-secret-types-classification-and-sensitivity)
+- [5. Principles for secure secrets management](/courseFiles/Section_03-ciCdAndSecretsManagement/secretsManagement.md#5-principles-for-secure-secrets-management)
+- [6. Architectural patterns for secrets in CI/CD](/courseFiles/Section_03-ciCdAndSecretsManagement/secretsManagement.md#6-architectural-patterns-for-secrets-in-cicd)
+- [7. Authentication & identity for pipelines](/courseFiles/Section_03-ciCdAndSecretsManagement/secretsManagement.md#7-authentication--identity-for-pipelines)
+- [8. Secret injection patterns and runtime handling](/courseFiles/Section_03-ciCdAndSecretsManagement/secretsManagement.md#8-secret-injection-patterns-and-runtime-handling)
+- [9. Secret lifecycle: generation, rotation, revocation, archival](/courseFiles/Section_03-ciCdAndSecretsManagement/secretsManagement.md#9-secret-lifecycle-generation-rotation-revocation-archival)
+- [10. Logging, telemetry, and leakage risks](/courseFiles/Section_03-ciCdAndSecretsManagement/secretsManagement.md#10-logging-telemetry-and-leakage-risks)
+- [11. Governance, policy, and compliance considerations](/courseFiles/Section_03-ciCdAndSecretsManagement/secretsManagement.md#11-governance-policy-and-compliance-considerations)
+- [12. Supply‑chain risks & third‑party components](/courseFiles/Section_03-ciCdAndSecretsManagement/secretsManagement.md#12-supply‑chain-risks-thirdparty-components)
+- [13. Recommended readings and standards](/courseFiles/Section_03-ciCdAndSecretsManagement/secretsManagement.md#13-recommended-readings-and-standards)
 
 ### [Containers and Cloud Security](/courseFiles/Section_04-containerAndCloudSecurity/containerAndCloudSecurity.md)
 
