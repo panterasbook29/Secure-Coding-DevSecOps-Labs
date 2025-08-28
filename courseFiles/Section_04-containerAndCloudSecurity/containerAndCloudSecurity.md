@@ -286,6 +286,7 @@ For the first lab, [click here!](./lab1.md)
 
 ## lab2_cloud_bucket_misconfiguration
 
+For the second lab, [click here!](./lab2.md)
 
 
 ***
