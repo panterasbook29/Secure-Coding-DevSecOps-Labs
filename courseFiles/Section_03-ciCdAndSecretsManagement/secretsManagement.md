@@ -345,8 +345,11 @@ A curated list for deeper study and policy justification:
 
 ## lab1_hardcoded_secret_detection
 
+For the first lab, [click me!](./Lab1.md)
+
 ## lab2_insecure_pipeline_exploitation
 
+For the second lab, [click me!](./Lab2.md)
 
 ***                                                       
 
