@@ -1,29 +1,9 @@
 ## Goal
 Find hardcoded secrets in code and Git history, block new ones locally with a pre-commit hook, and fail CI if secrets are pushed
 
-## Setup
-```bash
-git clone https://github.com/gitleaks/gitleaks.git
-```
-```bash
-cd gitleaks
-```
-```bash
-make build
-```
-```bash
-sudo mv gitleaks /usr/local/bin/
-```
-```bash
-pip3 install --user pre-commit
-```
-```bash
-sudo apt install git
-```
-
 ## Start
 ```bash
-mkdir -p ~/section03-ciCdAndSecretsManagement/lab1 && cd ~/section03-ciCdAndSecretsManagement/lab1
+cd /Secure_Coding/lab3-1/lab
 ```
 - Initialize a repo
 ```bash
