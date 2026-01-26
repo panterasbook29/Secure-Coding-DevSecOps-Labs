@@ -7,7 +7,7 @@ Generate an **SBOM** (CycloneDX) and add a tiny **CI gate** so bad versions donâ
 Should have evrything from the previous labs(**Snyk**, **nodejs**, **npm**, **jq**)
 
 ```bash
-mkdir -p ~/section02-lab2 && cd ~/section02-lab2
+cd ~/Secure_Coding/lab2-2
 ```
 
 ```bash
