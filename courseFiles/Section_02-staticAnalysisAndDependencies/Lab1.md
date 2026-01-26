@@ -7,7 +7,7 @@ Then patch the code and make the scan fail the build when risky patterns show up
 You should have the required packages installed from the prvious section
 
 ```bash
-mkdir -p ~/section02-lab1 && cd ~/section02-lab1
+cd ~/Secure_Coding/lab-2-1
 ```
 ```bash
 npm init -y
