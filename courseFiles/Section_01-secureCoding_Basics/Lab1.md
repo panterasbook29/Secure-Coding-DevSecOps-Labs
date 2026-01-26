@@ -2,12 +2,7 @@
 Get hands-on with two of the most common and dangerous vulnerabilities: SQL Injection and Cross-Site Scripting (XSS)
 
 ## Setup
-```bash
-sudo apt-get update
-```
-```bash
-sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-```
+
 ```bash
 sudo docker run --rm -p 3000:3000 bkimminich/juice-shop
 ```
