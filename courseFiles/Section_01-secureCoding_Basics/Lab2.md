@@ -7,13 +7,7 @@ You’ll use ``curl`` to exploit and then patch small, focused Node/Express endp
 
 ## Setup
 ```bash
-sudo apt-get update
-```
-```bash
-sudo apt-get install -y nodejs npm
-```
-```bash
-mkdir -p ~/lab2 && cd ~/lab2
+cd ~/Secure_Coding/lab1-2/
 ```
 ```bash
 npm init -y
