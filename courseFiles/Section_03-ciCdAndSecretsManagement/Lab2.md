@@ -59,8 +59,6 @@ lab3-2/
 Open a terminal in an isolated environment and run the following to create the repo:
 
 ```bash
-mkdir insecure_pipeline_exploitation
-cd insecure_pipeline_exploitation
 git init
 
 mkdir -p secrets src .ci/jobs .ci/actions
