@@ -19,15 +19,13 @@
 ---
 
 ## Repository layout used in this lab
-You’ll [download and unzip this zip archive](./lab1.zip). The zip archive contains the following files:
 ```
-lab1/
-├─ app/
-│  ├─ app.py
-│  └─ requirements.txt
-├─ Dockerfile.insecure
-├─ Dockerfile  //the fixed version you’ll build later!
-└─ .dockerignore
+app/
+├─ app.py
+└─ requirements.txt
+Dockerfile.insecure
+Dockerfile  //the fixed version you’ll build later!
+.dockerignore
 ```
 
 ---
@@ -36,7 +34,7 @@ lab1/
 
 ### A1. Build and run the insecure image
 ```bash
-cd lab1
+cd ~/Secure_Coding/lab4-1
 ```
 ```bash
 export BUILD_SECRET="DO_NOT_BAKE_SECRETS"
