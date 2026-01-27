@@ -1,4 +1,4 @@
-# Lab 1 — Insecure Dockerfile… and a Proper Fix
+# Lab 1 - Insecure Dockerfile… and a Proper Fix
 
 > **Goal.** Learn to recognize common insecure Dockerfile patterns, measure their impact (size, privileges, leakage), and then refactor the image to a safer, production‑ready build. This lab is split into two parts: **(A) Challenge**(this file) and **(B) Guided Solution** ([Click here for Solution](./lab1_solution.md)).
 
