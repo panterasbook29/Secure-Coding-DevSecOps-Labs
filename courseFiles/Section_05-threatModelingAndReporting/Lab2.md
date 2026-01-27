@@ -3,11 +3,7 @@ Do a **focused code review** of a real app (OWASP **Juice Shop**), confirm at le
 
 ## Setup
 ```bash
-sudo apt install ripgrep
-```
-
-```bash
-mkdir -p ~/section05-lab2 && cd ~/section05-lab2
+cd ~/Secure_Coding/lab5-2
 ```
 
 ```bash
