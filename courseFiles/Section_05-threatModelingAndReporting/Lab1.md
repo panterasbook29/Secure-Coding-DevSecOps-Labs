@@ -5,11 +5,9 @@ You’ll draw a quick DFD, identify top risks, rate them, and turn that into a s
 
 ## Setup
 ```bash
-mkdir -p ~/section05-lab1 && cd ~/section05-lab1
+cd ~/Secure_Coding/lab5-1
 ```
-```bash
-sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-```
+
 ```bash
 sudo docker run -d --name juice -p 3000:3000 bkimminich/juice-shop
 ```
