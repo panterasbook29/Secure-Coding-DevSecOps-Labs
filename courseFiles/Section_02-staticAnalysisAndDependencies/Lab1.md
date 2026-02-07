@@ -4,7 +4,6 @@ Use **Semgrep** to find real issues in a tiny Node/Express app (SQL injection, X
 Then patch the code and make the scan fail the build when risky patterns show up
 
 ## Setup
-You should have the required packages installed from the prvious section
 
 ```bash
 cd ~/Secure_Coding/lab-2-1
