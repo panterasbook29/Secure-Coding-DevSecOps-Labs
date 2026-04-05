@@ -1,3 +1,7 @@
+![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
+
+# Threat Modeling and Reporting
+
 ## Goal
 Do a **focused code review** of a real app (OWASP **Juice Shop**), confirm at least one issue with a quick repro, and produce a short report engineers can act on
 
@@ -56,7 +60,7 @@ rg -n -i "jwt|jsonwebtoken|verify|sign" -t js -t ts -g '!node_modules/*'
 semgrep --config p/owasp-top-ten
 ```
 
-<img width="191" height="54" alt="image" src="https://github.com/user-attachments/assets/81aa090b-5581-4abf-9052-c7b810169f6d" />
+<img width="149" height="41" alt="findings" src="https://github.com/user-attachments/assets/e038ea6d-ab43-4c34-b475-26d3304afcce" />
 
 
 - Open the first 3–5 findings that look security relevant (injection, auth/session, XSS), ignore noisy style issues
