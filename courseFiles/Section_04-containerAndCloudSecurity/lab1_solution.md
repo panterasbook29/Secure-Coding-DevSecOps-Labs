@@ -1,3 +1,4 @@
+![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
 
 # Part B — Guided Solution & Explanations
 
@@ -59,7 +60,8 @@ CMD ["python", "app.py"]
 sudo docker build -t lab1:fixed .
 ```
 
-![](./attachments/build2.png)
+<img width="1260" height="530" alt="docker_build" src="https://github.com/user-attachments/assets/1d4cf5cc-3996-4a14-b6de-4d13b2edf46a" />
+
 
 - Run (note the port change and non-root user)
 
@@ -67,7 +69,8 @@ sudo docker build -t lab1:fixed .
 sudo docker run --rm -p 8080:8080 --name lab1_fixed lab1:fixed
 ```
 
-![](./attachments/run2.png)
+<img width="893" height="143" alt="docker_run" src="https://github.com/user-attachments/assets/953fd5cf-1083-4a97-a40e-8dafc5981b47" />
+
 
 In another terminal:
 
@@ -75,7 +78,8 @@ In another terminal:
 curl -s localhost:8080/
 ```
 
-![](./attachments/curl3.png)
+<img width="536" height="35" alt="curl_app" src="https://github.com/user-attachments/assets/92a193c5-6c8a-469a-b311-3670c2db2c6f" />
+
 
  Expect: Hello from Lab 1!
 
@@ -83,7 +87,8 @@ curl -s localhost:8080/
 curl -s localhost:8080/whoami
 ```
 
-![](./attachments/curl4.png)
+<img width="583" height="34" alt="curl_whoami" src="https://github.com/user-attachments/assets/a15000b5-3685-434c-80a9-1e302bf5bf8a" />
+
 
 Expect: EUID != 0 (ex: 10001)
 
@@ -91,9 +96,10 @@ Expect: EUID != 0 (ex: 10001)
 curl -s localhost:8080/secret-demo
 ```
 
-![](./attachments/curl5.png)
+<img width="619" height="35" alt="curl_secret" src="https://github.com/user-attachments/assets/21920da6-2796-401f-bc82-012853131770" />
 
- Expect: Secret present at runtime? False
+
+Expect: Secret present at runtime? False
 
 - Pass a runtime secret safely (only for the process lifetime)
 ```bash
@@ -107,9 +113,10 @@ sleep 2
 curl -s localhost:8080/secret-demo
 ```
 
-![](./attachments/run3.png)
+<img width="899" height="250" alt="docker_run_2" src="https://github.com/user-attachments/assets/c25fbb01-a658-45b6-9865-3f5b9f73ccdb" />
 
- Expect: Secret present at runtime? True
+
+Expect: Secret present at runtime? True
 
 
 Stop the container (Ctrl+C) when done.
