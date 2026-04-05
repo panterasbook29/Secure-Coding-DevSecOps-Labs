@@ -1,9 +1,13 @@
+![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
+
+# Hardcoded Secrets and Git History
+
 ## Goal
 Find hardcoded secrets in code and Git history, block new ones locally with a pre-commit hook, and fail CI if secrets are pushed
 
 ## Start
 ```bash
-cd /Secure_Coding/lab3-1/lab
+cd ~/Secure_Coding/lab3-1/lab
 ```
 - Initialize a repo
 ```bash
@@ -44,13 +48,17 @@ git commit -m "feat: initial app with (intentionally) hardcoded secrets"
 ```bash
 gitleaks detect --source . --redact --report-format json --report-path gitleaks-report.json || true
 ```
-<img width="476" height="202" alt="image" src="https://github.com/user-attachments/assets/f6ec0b0e-07bf-460c-be63-701a119d7cdf" />
+
+<img width="1137" height="182" alt="gitleaks_1" src="https://github.com/user-attachments/assets/480d0782-9eb8-422d-8e30-fee823c6fc6a" />
+
 
 - Take a quick look:
 ```bash
 cat gitleaks-report.json
 ```
-<img width="1350" height="443" alt="image" src="https://github.com/user-attachments/assets/7df00bb4-261c-4372-9f98-cfbb1e50d87a" />
+
+<img width="1109" height="383" alt="gitleaks_result" src="https://github.com/user-attachments/assets/fab3b437-ab33-445b-a2e3-a8f1a5576196" />
+
 
 - Notice it flags the `ghp_` token
 - It scans **history**, so the first commit shows up
@@ -84,7 +92,7 @@ git add app.py
 git commit -m "test: try to sneak a slack token" || echo "Pre-commit blocked the secret"
 ```
 
-<img width="719" height="464" alt="image" src="https://github.com/user-attachments/assets/3598d201-27ed-4667-b776-cb9a5eedd899" />
+<img width="1057" height="395" alt="pre_commit_block" src="https://github.com/user-attachments/assets/8b17978b-0f36-4c75-9e72-1cb1f9501020" />
 
 
 - Revert the test change
@@ -136,7 +144,8 @@ git add .gitignore .env.example app.py
 git commit -m "fix: read secrets from env; add .env to .gitignore"
 ```
 
-<img width="726" height="101" alt="image" src="https://github.com/user-attachments/assets/f8bb9efc-55d3-4131-919c-014aaf5de89f" />
+<img width="892" height="98" alt="secret_fix" src="https://github.com/user-attachments/assets/633d4a9d-1987-48c7-bdd4-750d6c46b0be" />
+
 
 No secrets in the file anymore
 
