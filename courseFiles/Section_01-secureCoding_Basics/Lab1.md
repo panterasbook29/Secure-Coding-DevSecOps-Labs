@@ -1,3 +1,7 @@
+![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
+
+# SQLi and XSS
+
 ## Goal
 Get hands-on with two of the most common and dangerous vulnerabilities: SQL Injection and Cross-Site Scripting (XSS)
 
@@ -139,7 +143,9 @@ app.get('/product/:id', async (req, res) => {
 
 - To do it go to the **Search bar** on the home page
 - Enter the following:
-<pre><iframe src="javascript:alert('HACKED')"></pre>
+```
+<iframe src="javascript:alert('HACKED')">
+```
 
 <img width="1852" height="1051" alt="image" src="https://github.com/user-attachments/assets/bff18e38-159d-4693-a574-0eaf900e8a19" />
 
