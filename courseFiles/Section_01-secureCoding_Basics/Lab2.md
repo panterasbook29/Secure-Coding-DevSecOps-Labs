@@ -1,3 +1,7 @@
+![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
+
+# Input Validation And Sanitization
+
 ## Goal
 Strengthen your input validation & sanitization skills by exploiting two classic flaws and then fixing them properly:
 1. Mass Assignment / Over-posting -> escalate a normal user to admin
@@ -101,7 +105,8 @@ curl -s http://localhost:4000/profile/update \
 
 - You should see this
 
-<img width="647" height="250" alt="image" src="https://github.com/user-attachments/assets/50ceedbd-72d1-41d6-88d1-485bfaf6f400" />
+<img width="711" height="201" alt="curl_update" src="https://github.com/user-attachments/assets/7e06a721-c6e8-4dc8-9d5a-a00da3bd11e0" />
+
 
 - Overpost ``role`` to become admin:
 ```bash
@@ -110,7 +115,7 @@ curl -s http://localhost:4000/profile/update \
   -d '{"displayName":"Owned","role":"admin"}' | jq .
 ```
 
-<img width="640" height="244" alt="image" src="https://github.com/user-attachments/assets/f8cb5722-78be-4a5f-94d6-c2516f141324" />
+<img width="708" height="200" alt="curl_update_admin" src="https://github.com/user-attachments/assets/a0728380-2132-4a56-9769-b992d6abb4aa" />
 
 
 - **Result:** your role flips to "admin". That’s a silent privilege escalation caused by missing allowlist validation
@@ -230,7 +235,7 @@ Traversal is blocked:
 curl -i 'http://localhost:4000/files/secure?filename=../../etc/hostname'
 ```
 
-<img width="867" height="244" alt="image" src="https://github.com/user-attachments/assets/554f8375-0923-4d6f-907d-f6e6ede728df" />
+<img width="908" height="221" alt="patched_path_traversal" src="https://github.com/user-attachments/assets/41b6a532-d164-4594-a0bc-6a37046c1a92" />
 
 
 
