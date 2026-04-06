@@ -22,7 +22,7 @@ npm i express helmet
 cat > app.js <<'EOF'
 const express = require('express');
 const helmet = require('helmet');
-const { exec } = require('child_process');
+const child_process = require('child_process');
 
 const app = express();
 app.use(express.json());
@@ -45,9 +45,7 @@ app.get('/session', (req, res) => {
 
 // --- VULN 3: Command execution with user input ---
 app.post('/run', (req, res) => {
-  const { cmd } = req.body || {};
-  // never pass untrusted strings to a shell
-  exec(cmd, (err, stdout, stderr) => {
+  child_process.exec(req.body.cmd, (err, stdout, stderr) => {
     if (err) return res.status(500).send('error');
     res.type('text/plain').send(stdout || stderr || 'done');
   });
