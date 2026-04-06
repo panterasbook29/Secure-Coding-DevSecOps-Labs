@@ -1,3 +1,7 @@
+![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
+
+# Semgrep
+
 ## Goal
 Use **Semgrep** to find real issues in a tiny Node/Express app (SQL injection, XSS, insecure cookies, and a sketchy command runner)
 
@@ -6,7 +10,7 @@ Then patch the code and make the scan fail the build when risky patterns show up
 ## Setup
 
 ```bash
-cd ~/Secure_Coding/lab-2-1
+cd ~/Secure_Coding/lab2-1
 ```
 ```bash
 npm init -y
@@ -52,6 +56,7 @@ app.post('/run', (req, res) => {
 app.listen(5000, () => console.log('Vulnerable app on http://localhost:5000'));
 EOF
 ```
+
 ```bash
 node app.js
 ```
@@ -59,11 +64,13 @@ node app.js
 
 ## Start
 - Run this command to check for vulerabilities using the registry pack
+
 ```bash
-semgrep --config p/owasp-top-ten .
+semgrep --config p/owasp-top-ten --config cookie-rule.yml --config command-exec-rule.yml .
 ```
 
-<img width="1155" height="752" alt="image" src="https://github.com/user-attachments/assets/38fe7860-f13a-471d-a01a-b5f85f4e841d" />
+<img width="623" height="458" alt="findings" src="https://github.com/user-attachments/assets/36b43f25-7f14-42df-a629-f1d715a478db" />
+
 
 - We can clearly see all the vulnerabilities, let's patch them!
 
