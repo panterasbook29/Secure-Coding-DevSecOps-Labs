@@ -158,17 +158,15 @@ curl -i "http://localhost:5000/session" | grep -i set-cookie
 ### Fix 3 — Command Injection in /run
 
 - Semgrep flagged:
-1. ``javascript.express.express-child-process.express-child-process``
+1. ``express-child-process-exec``
 - **Meaning:** You pass user-controlled strings to a shell (``exec``), so an attacker can run arbitrary commands
 
 **vulnerable code**
 ```
-const { exec } = require('child_process');
+const child_process = require('child_process');
 
 app.post('/run', (req, res) => {
-  const { cmd } = req.body || {};
-  // Runs whatever the client sends
-  exec(cmd, (err, stdout, stderr) => {
+  child_process.exec(req.body.cmd, (err, stdout, stderr) => {
     if (err) return res.status(500).send('error');
     res.type('text/plain').send(stdout || stderr || 'done');
   });
@@ -176,7 +174,7 @@ app.post('/run', (req, res) => {
 ```
 
 **Why this is risky:**
-1. ``cmd`` could be ``ls; cat /etc/passwd``, backticks, subshells, you name it
+1. ``req.body.cmd``comes directly from the user, so the attacker controls the command string. This could be ``ls; cat /etc/passwd``, backticks, subshells, you name it
 2. This is full remote code execution, game over
 
 **secure code** - remove the shell; use an allowlist and ``spawn``
@@ -191,13 +189,15 @@ const ALLOWED = {
 app.post('/run', (req, res) => {
   const key = String((req.body || {}).cmd || '');
   const entry = ALLOWED[key];
+
   if (!entry) return res.status(400).json({ error: 'not allowed' });
 
   // Runs a fixed program with fixed args — no user strings enter the shell
   const child = spawn(entry.cmd, entry.args, { stdio: 'pipe' });
   let out = '';
+
   child.stdout.on('data', d => out += d.toString());
-  child.stderr.on('data', d => out += d.toString());
+  child.stderr.on('data', (d) => out += d.toString());
   child.on('close', () => res.type('text/plain').send(out || 'done'));
 });
 ```
