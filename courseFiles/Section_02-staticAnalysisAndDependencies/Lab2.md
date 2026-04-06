@@ -1,3 +1,7 @@
+![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
+
+# Snyk and NPM Audit
+
 ## Goal
 Find and fix risky third-party packages with Snyk and npm audit
 
@@ -34,6 +38,19 @@ EOF
 npm i
 ```
 
+To use `Snyk CLI`, you must first create your account here:
+
+- https://app.snyk.io/login
+
+Then create a token to use here:
+
+- https://app.snyk.io/account/personal-access-tokens
+
+Copy the token and set it as an environment variable:
+
+```bash
+export SNYK_TOKEN=your_token_here
+```
 
 ## Start
 
@@ -43,14 +60,18 @@ Run both a native and a third-party scanner:
 ```bash
 npm audit --omit=dev || true
 ```
-<img width="983" height="507" alt="image" src="https://github.com/user-attachments/assets/81e5ae4d-353e-4372-b584-712cd5fca3a3" />
+
+<img width="1057" height="563" alt="npm_audit" src="https://github.com/user-attachments/assets/23f9ce96-b4f0-4c74-8c3f-b219db1ace09" />
+
 
 <br><br>
 
 ```bash
 snyk test
 ```
-<img width="1273" height="630" alt="image" src="https://github.com/user-attachments/assets/9abe7edc-d068-4063-8bfe-43865a8e1230" />
+
+<img width="833" height="543" alt="snyk_test" src="https://github.com/user-attachments/assets/e2c6d14e-7376-4dae-8ffb-d192dfb34222" />
+
 
 **What to notice**
 - Which packages/versions are flagged
@@ -120,7 +141,7 @@ chmod +x scripts/security_gate.sh
 ./scripts/security_gate.sh
 ```
 
-<img width="644" height="605" alt="image" src="https://github.com/user-attachments/assets/30740190-163e-4523-83ee-e1ab12413f2a" />
+<img width="570" height="512" alt="re-test" src="https://github.com/user-attachments/assets/0b0a7029-cdfd-413e-a1b9-f8e2ab27cc72" />
 
 
 ---
