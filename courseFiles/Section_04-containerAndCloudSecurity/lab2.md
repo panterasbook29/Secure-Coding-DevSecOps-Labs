@@ -1,4 +1,6 @@
-# Lab 2 - cloud\_bucket\_misconfiguration 
+![image](https://github.com/user-attachments/assets/068fae26-6e8f-402f-ad69-63a4e6a1f59e)
+
+# Lab 2 - Cloud Bucket Misconfiguration 
 
 > **Goal:** Demonstrate a bucket‑like public misconfiguration using a *local* HTTP server and then remediate it by adding authentication, least privilege access, and encryption‑at‑rest patterns.
 
